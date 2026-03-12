@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QC7つ道具 ＆ 新QC7つ道具 実務リファレンス</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #0d1117;
+  --bg2:       #161b22;
+  --bg3:       #1f2937;
+  --border:    #30363d;
+  --amber:     #f59e0b;
+  --amber2:    #d97706;
+  --amber-dim: rgba(245,158,11,0.12);
+  --blue:      #38bdf8;
+  --blue-dim:  rgba(56,189,248,0.1);
+  --green:     #4ade80;
+  --green-dim: rgba(74,222,128,0.1);
+  --red:       #f87171;
+  --red-dim:   rgba(248,113,113,0.1);
+  --purple:    #c084fc;
+  --text:      #e6edf3;
+  --text2:     #8b949e;
+  --text3:     #484f58;
+  --font-head: 'Rajdhani', sans-serif;
+  --font-body: 'Noto Sans JP', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--bg2);
+  border-bottom: 2px solid var(--amber);
+  padding: 18px 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-header .logo {
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.site-header .subtitle {
+  color: var(--text2);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+.header-badge {
+  margin-left: auto;
+  background: var(--amber-dim);
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 2px;
+}
+
+/* ── TABS ── */
+.tab-bar {
+  display: flex;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  gap: 0;
+  overflow-x: auto;
+}
+.tab-btn {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text2);
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 14px 24px;
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+/* ── LAYOUT ── */
+.main { padding: 32px; max-width: 1400px; margin: 0 auto; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── SECTION INTRO ── */
+.section-intro {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--amber);
+}
+.section-intro h2 {
+  font-family: var(--font-head);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.section-intro p { color: var(--text2); font-size: 12px; }
+.tag-group { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+.tag-amber { color: var(--amber); border-color: var(--amber); background: var(--amber-dim); }
+.tag-blue  { color: var(--blue);  border-color: var(--blue);  background: var(--blue-dim); }
+.tag-green { color: var(--green); border-color: var(--green); background: var(--green-dim); }
+
+/* ── TOOL GRID ── */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 20px;
+}
+
+/* ── TOOL CARD ── */
+.tool-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color .2s, transform .15s;
+}
+.tool-card:hover { border-color: var(--amber); transform: translateY(-2px); }
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+}
+.card-num {
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--amber);
+  line-height: 1;
+  min-width: 32px;
+}
+.card-title-wrap { flex: 1; }
+.card-title {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 1px;
+}
+.card-sub { font-size: 10px; color: var(--text2); font-family: var(--font-mono); }
+.card-phase {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 3px 7px;
+  border-radius: 2px;
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  background: var(--amber-dim);
+}
+.card-body { padding: 16px 18px; }
+.card-desc { color: var(--text2); font-size: 12px; margin-bottom: 12px; }
+
+/* ── INFO ROWS ── */
+.info-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 11px;
+}
+.info-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--amber);
+  background: var(--amber-dim);
+  border: 1px solid var(--amber);
+  padding: 1px 6px;
+  border-radius: 2px;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.info-val { color: var(--text); }
+
+/* ── CHECKLIST ── */
+.checklist { margin-top: 14px; }
+.checklist-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.check-item input[type=checkbox] { display: none; }
+.check-box {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--bg3);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s;
+}
+.check-item.checked .check-box {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+.check-item.checked .check-box::after { content: '✓'; color: #000; font-size: 10px; font-weight: 700; }
+.check-item.checked .check-text { color: var(--text3); text-decoration: line-through; }
+.check-text { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+/* ── INTERACTIVE ZONE ── */
+.interactive-zone {
+  margin-top: 14px;
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+.interactive-zone-title {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.interactive-zone-title::before { content:'▶'; }
+
+/* ── FISHBONE ── */
+.fishbone-wrap { overflow-x: auto; }
+.fishbone-svg { width: 100%; min-width: 500px; height: 260px; }
+
+/* ── PARETO ── */
+.pareto-inputs { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+.pareto-row { display: flex; gap: 6px; align-items: center; }
+.pareto-row input {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.pareto-row input:focus { outline: none; border-color: var(--amber); }
+.pareto-label-in { width: 120px; }
+.pareto-num-in { width: 60px; }
+.btn-small {
+  background: var(--amber-dim);
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.btn-small:hover { background: var(--amber); color: #000; }
+.btn-danger {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red-dim);
+}
+.btn-danger:hover { background: var(--red); color: #fff; }
+.pareto-canvas { width:100%; height:160px; background:var(--bg2); border:1px solid var(--border); border-radius:2px; }
+
+/* ── CONTROL CHART ── */
+.ctrl-canvas { width:100%; height:140px; background:var(--bg2); border:1px solid var(--border); border-radius:2px; }
+.ctrl-inputs { display:flex; gap:6px; margin-bottom:8px; flex-wrap:wrap; align-items:center; }
+.ctrl-inputs input {
+  width:60px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.ctrl-inputs input:focus { outline:none; border-color:var(--amber); }
+.ctrl-inputs label { font-size:10px; color:var(--text2); }
+.ctrl-stat { font-family:var(--font-mono); font-size:10px; color:var(--text2); margin-top:6px; }
+.ctrl-stat span { color:var(--amber); }
+
+/* ── HISTOGRAM ── */
+.hist-canvas { width:100%; height:130px; background:var(--bg2); border:1px solid var(--border); border-radius:2px; }
+.hist-inputs { display:flex; gap:6px; margin-bottom:8px; align-items:center; flex-wrap:wrap; }
+.hist-inputs input {
+  width:180px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.hist-inputs input:focus { outline:none; border-color:var(--amber); }
+
+/* ── CHECKSHEET ── */
+.checksheet-grid {
+  display: grid;
+  grid-template-columns: auto repeat(5, 1fr);
+  gap: 1px;
+  background: var(--border);
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+.cs-cell {
+  background: var(--bg2);
+  padding: 4px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: background .1s;
+  font-family: var(--font-mono);
+}
+.cs-cell.header { background: var(--bg3); color: var(--amber); font-weight: 700; cursor: default; }
+.cs-cell.item   { text-align:left; cursor:default; color:var(--text2); }
+.cs-cell.active { background: var(--amber-dim); color: var(--amber); }
+.cs-count { display:inline-block; width:18px; height:18px; line-height:18px; border-radius:50%; background:var(--amber); color:#000; font-size:10px; font-weight:700; }
+
+/* ── SCATTER ── */
+.scatter-canvas { width:100%; height:150px; background:var(--bg2); border:1px solid var(--border); border-radius:2px; }
+
+/* ── AFFINITY ── */
+.affinity-board {
+  display:flex; flex-wrap:wrap; gap:8px; min-height:80px;
+  padding:8px; background:var(--bg); border:1px solid var(--border);
+  border-radius:3px; margin-bottom:8px;
+}
+.sticky-note {
+  background: #fef3c7;
+  color: #1a1a1a;
+  padding: 6px 10px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-family: var(--font-body);
+  max-width: 140px;
+  word-break: break-all;
+  box-shadow: 2px 2px 6px rgba(0,0,0,.4);
+  position: relative;
+  cursor: move;
+}
+.sticky-note .del-btn {
+  position:absolute; top:2px; right:4px;
+  background:none; border:none; color:#666; cursor:pointer; font-size:10px;
+}
+.sticky-note:nth-child(3n)   { background: #dbeafe; }
+.sticky-note:nth-child(3n+2) { background: #dcfce7; }
+.sticky-input-row { display:flex; gap:6px; align-items:center; }
+.sticky-input {
+  flex:1;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 11px;
+}
+.sticky-input:focus { outline:none; border-color:var(--amber); }
+
+/* ── MATRIX ── */
+.matrix-table { width:100%; border-collapse:collapse; font-size:10px; margin-top:8px; }
+.matrix-table th, .matrix-table td {
+  border: 1px solid var(--border);
+  padding: 5px 8px;
+  text-align:center;
+}
+.matrix-table th { background:var(--bg3); color:var(--amber); font-family:var(--font-mono); }
+.matrix-cell {
+  cursor:pointer;
+  transition: background .1s;
+  font-family:var(--font-mono);
+  font-size:13px;
+}
+.matrix-cell[data-val="◎"] { background:rgba(245,158,11,.3); color:var(--amber); }
+.matrix-cell[data-val="○"] { background:rgba(74,222,128,.15); color:var(--green); }
+.matrix-cell[data-val="△"] { background:rgba(56,189,248,.1);  color:var(--blue); }
+.matrix-cell[data-val=""]  { background:var(--bg2); color:var(--text3); }
+
+/* ── ARROW DIAGRAM ── */
+.arrow-svg { width:100%; height:120px; }
+.node-circle { fill:var(--bg3); stroke:var(--amber); stroke-width:1.5; }
+.node-text   { fill:var(--amber); font-family:'Rajdhani',sans-serif; font-size:11px; font-weight:700; text-anchor:middle; dominant-baseline:central; }
+.arrow-line  { stroke:var(--text2); stroke-width:1.5; marker-end:url(#arrowhead); }
+.arrow-label { fill:var(--text2); font-size:9px; text-anchor:middle; font-family:'JetBrains Mono',monospace; }
+.critical-line { stroke:var(--red); }
+.critical-label { fill:var(--red); }
+
+/* ── PDPC ── */
+.pdpc-svg { width:100%; height:150px; }
+
+/* ── TREE ── */
+.tree-svg { width:100%; height:180px; overflow:visible; }
+.tree-box { fill:var(--bg3); stroke:var(--border); stroke-width:1; }
+.tree-box.root { fill:var(--amber-dim); stroke:var(--amber); }
+.tree-text { fill:var(--text); font-size:9px; font-family:'Noto Sans JP',sans-serif; text-anchor:middle; dominant-baseline:central; }
+.tree-text.root-text { fill:var(--amber); font-weight:700; }
+.tree-line { stroke:var(--border); stroke-width:1; fill:none; }
+
+/* ── RELATIONS ── */
+.relation-svg { width:100%; height:200px; }
+.rel-box  { fill:var(--bg3); stroke:var(--border); stroke-width:1; rx:4; }
+.rel-text { fill:var(--text2); font-size:8px; text-anchor:middle; dominant-baseline:central; font-family:'Noto Sans JP',sans-serif; }
+.rel-arrow { stroke:var(--text2); stroke-width:1; fill:none; marker-end:url(#arrowhead2); }
+.rel-arrow.key { stroke:var(--amber); stroke-width:2; marker-end:url(#arrowhead3); }
+
+/* ── FOOTER NOTE ── */
+.dmaic-map {
+  margin-top: 28px;
+  padding: 16px 20px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--blue);
+}
+.dmaic-map h4 { font-family:var(--font-head); color:var(--blue); font-size:14px; letter-spacing:1px; margin-bottom:10px; }
+.dmaic-flow { display:flex; gap:0; flex-wrap:wrap; }
+.dmaic-step {
+  display:flex; flex-direction:column; align-items:center;
+  background:var(--bg3); border:1px solid var(--border);
+  padding:8px 14px; min-width:100px;
+  font-size:10px;
+}
+.dmaic-step-label { font-family:var(--font-head); font-size:16px; font-weight:700; color:var(--amber); }
+.dmaic-step-tools { color:var(--text2); font-size:9px; text-align:center; line-height:1.6; margin-top:4px; }
+.dmaic-arrow { display:flex; align-items:center; color:var(--text3); font-size:18px; padding:0 4px; }
+
+/* ── RESET BTN ── */
+.reset-btn {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  background: none;
+  border: 1px solid var(--text3);
+  color: var(--text3);
+  padding: 2px 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  float: right;
+}
+.reset-btn:hover { color:var(--red); border-color:var(--red); }
+
+/* PROGRESS BAR */
+.card-progress { height:3px; background:var(--border); margin-top:12px; border-radius:2px; }
+.card-progress-fill { height:100%; background:var(--amber); border-radius:2px; transition: width .3s; }
+
+/* ── scroll ── */
+::-webkit-scrollbar { width:6px; height:6px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:var(--text3); }
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div>
+    <div class="logo">QC TOOLS　品質管理 実務リファレンス</div>
+    <div class="subtitle">QC 7つ道具 ／ 新QC 7つ道具　─　インタラクティブ実務版</div>
+  </div>
+  <div class="header-badge">LEAN SIX SIGMA READY</div>
+</header>
+
+<nav class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('qc7')">QC 7つ道具</button>
+  <button class="tab-btn" onclick="switchTab('newqc7')">新 QC 7つ道具</button>
+  <button class="tab-btn" onclick="switchTab('dmaicmap')">DMAIC 対応マップ</button>
+</nav>
+
+<main class="main">
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 1: QC 7つ道具
+══════════════════════════════════════════════════════ -->
+<div id="tab-qc7" class="tab-panel active">
+  <div class="section-intro">
+    <div>
+      <h2>QC 7つ道具</h2>
+      <p>数値データ（定量データ）を使って問題を可視化・分析するツール群。<br>製造現場の日常的な品質管理・不良低減に使う。</p>
+      <div class="tag-group">
+        <span class="tag tag-amber">定量データ</span>
+        <span class="tag tag-amber">現場主体</span>
+        <span class="tag tag-amber">日常管理</span>
+        <span class="tag tag-blue">DMAIC-M/A/C</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool-grid">
+
+    <!-- D1: チェックシート -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">D1</span>
+        <div class="card-title-wrap">
+          <div class="card-title">チェックシート</div>
+          <div class="card-sub">Check Sheet</div>
+        </div>
+        <span class="card-phase">M:Measure</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">データを収集・記録するための定型フォーム。不良の種類・発生場所・時間帯別に件数を記録し、パターンを把握する。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">現状把握・データ収集フェーズ</span></div>
+        <div class="info-row"><span class="info-label">出力</span><span class="info-val">不良件数・発生分布・時間帯別集計</span></div>
+        <div class="info-row"><span class="info-label">次のツール</span><span class="info-val">パレート図・ヒストグラム・層別</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">インタラクティブ チェックシート（クリックで記録）</div>
+          <div class="checksheet-grid" id="csGrid">
+            <div class="cs-cell header">不良種類 ↓ / 時間帯 →</div>
+            <div class="cs-cell header">8-10時</div>
+            <div class="cs-cell header">10-12時</div>
+            <div class="cs-cell header">13-15時</div>
+            <div class="cs-cell header">15-17時</div>
+            <div class="cs-cell header">合計</div>
+          </div>
+          <div style="font-size:9px;color:var(--text3);font-family:var(--font-mono);margin-top:4px;">※ セルをクリックして計上 / 右クリックで減算</div>
+          <div style="margin-top:6px;display:flex;gap:6px;">
+            <button class="btn-small" onclick="addCSRow()">＋ 不良項目追加</button>
+            <button class="btn-small btn-danger" onclick="resetCS()">リセット</button>
+          </div>
+        </div>
+
+        <div class="checklist">
+          <div class="checklist-title">実施前チェック</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">収集する項目（不良種類）を事前にMECEで洗い出した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">層別の軸（時間帯・設備・作業者等）を決めた</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">記録ルールを記入者全員に説明した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">収集期間・サンプル数を統計的に決定した</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- D2: 層別 -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">D2</span>
+        <div class="card-title-wrap">
+          <div class="card-title">層別</div>
+          <div class="card-sub">Stratification</div>
+        </div>
+        <span class="card-phase">M/A:Analyze</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">データを意味のあるグループ（層）に分けて比較分析する考え方。他6つの道具を使う際に常に意識する「視点」。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">データ収集・分析の全フェーズ</span></div>
+        <div class="info-row"><span class="info-label">代表的な層別軸</span><span class="info-val">4M（人・機械・材料・方法）/ 時間帯 / シフト</span></div>
+        <div class="info-row"><span class="info-label">注意点</span><span class="info-val">層別前後でパターンが変わるかを必ず確認</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">層別の視点 チェックリスト</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;">
+            <div>
+              <div style="color:var(--amber);font-family:var(--font-mono);font-size:9px;margin-bottom:4px;">4M 軸</div>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">作業者別（Man）</span></label>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">設備・号機別（Machine）</span></label>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">材料ロット別（Material）</span></label>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">工程・手順別（Method）</span></label>
+            </div>
+            <div>
+              <div style="color:var(--blue);font-family:var(--font-mono);font-size:9px;margin-bottom:4px;">時間 軸</div>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">時間帯・シフト別</span></label>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">曜日・週次</span></label>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">季節・温湿度条件</span></label>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">4M変更前後で分けた</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- D3: パレート図 -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">D3</span>
+        <div class="card-title-wrap">
+          <div class="card-title">パレート図</div>
+          <div class="card-sub">Pareto Chart</div>
+        </div>
+        <span class="card-phase">A:Analyze</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">不良・クレーム等の件数を多い順に並べた棒グラフと累積折れ線の複合図。80:20の法則で「重点項目」を特定する。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">改善テーマの絞り込み・優先順位付け</span></div>
+        <div class="info-row"><span class="info-label">ポイント</span><span class="info-val">累積80%ラインで重点項目を絞る</span></div>
+        <div class="info-row"><span class="info-label">注意</span><span class="info-val">件数だけでなく「損失金額」でも作成する</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">インタラクティブ パレート図</div>
+          <div class="pareto-inputs" id="paretoInputs">
+            <div class="pareto-row">
+              <input class="pareto-label-in" type="text" placeholder="不良種類" value="寸法不良">
+              <input class="pareto-num-in" type="number" placeholder="件数" value="45">
+              <button class="btn-small btn-danger" onclick="this.parentElement.remove();drawPareto()">✕</button>
+            </div>
+            <div class="pareto-row">
+              <input class="pareto-label-in" type="text" placeholder="不良種類" value="外観キズ">
+              <input class="pareto-num-in" type="number" placeholder="件数" value="30">
+              <button class="btn-small btn-danger" onclick="this.parentElement.remove();drawPareto()">✕</button>
+            </div>
+            <div class="pareto-row">
+              <input class="pareto-label-in" type="text" placeholder="不良種類" value="欠け">
+              <input class="pareto-num-in" type="number" placeholder="件数" value="18">
+              <button class="btn-small btn-danger" onclick="this.parentElement.remove();drawPareto()">✕</button>
+            </div>
+            <div class="pareto-row">
+              <input class="pareto-label-in" type="text" placeholder="不良種類" value="汚れ">
+              <input class="pareto-num-in" type="number" placeholder="件数" value="12">
+              <button class="btn-small btn-danger" onclick="this.parentElement.remove();drawPareto()">✕</button>
+            </div>
+            <div class="pareto-row">
+              <input class="pareto-label-in" type="text" placeholder="不良種類" value="その他">
+              <input class="pareto-num-in" type="number" placeholder="件数" value="5">
+              <button class="btn-small btn-danger" onclick="this.parentElement.remove();drawPareto()">✕</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;margin-bottom:8px;">
+            <button class="btn-small" onclick="addParetoRow()">＋ 項目追加</button>
+            <button class="btn-small" onclick="drawPareto()">▶ 描画</button>
+          </div>
+          <canvas class="pareto-canvas" id="paretoCanvas" width="600" height="160"></canvas>
+        </div>
+
+        <div class="checklist">
+          <div class="checklist-title">実施チェック</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">件数パレートと損失金額パレートの両方を作成した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">80%ラインを引いて重点項目を特定した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">「その他」が重点項目に入っていないか確認した</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- D4: ヒストグラム -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">D4</span>
+        <div class="card-title-wrap">
+          <div class="card-title">ヒストグラム</div>
+          <div class="card-sub">Histogram</div>
+        </div>
+        <span class="card-phase">M:Measure</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">計量値データの分布形状を棒グラフで可視化。正規分布・偏り・二山・歯抜けなどの形状から工程の状態を診断する。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">工程能力（Cpk）評価・バラツキ把握</span></div>
+        <div class="info-row"><span class="info-label">分布形状の診断</span><span class="info-val">正規・左右偏り・二山・絶壁・歯抜け</span></div>
+        <div class="info-row"><span class="info-label">注意</span><span class="info-val">規格線（USL/LSL）も合わせて記入する</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">インタラクティブ ヒストグラム</div>
+          <div class="hist-inputs">
+            <input type="text" id="histData" placeholder="スペース区切りで数値入力（例：10.1 10.3 9.8 ...）" value="10.1 10.3 9.8 10.0 10.2 9.9 10.4 10.1 9.7 10.2 10.0 10.3 9.9 10.1 10.5 9.8 10.2 10.1 9.9 10.3 10.0 10.1 9.8 10.2 10.4 10.1 10.0 9.9 10.2 10.1">
+            <button class="btn-small" onclick="drawHistogram()">▶ 描画</button>
+          </div>
+          <div style="display:flex;gap:12px;margin-bottom:6px;font-size:10px;">
+            <label style="color:var(--text2);">LSL: <input id="histLSL" type="number" style="width:55px;background:var(--bg2);border:1px solid var(--border);color:var(--red);padding:2px 5px;border-radius:2px;font-family:var(--font-mono);" value="9.7"></label>
+            <label style="color:var(--text2);">USL: <input id="histUSL" type="number" style="width:55px;background:var(--bg2);border:1px solid var(--border);color:var(--red);padding:2px 5px;border-radius:2px;font-family:var(--font-mono);" value="10.5"></label>
+          </div>
+          <canvas class="hist-canvas" id="histCanvas" width="600" height="130"></canvas>
+          <div id="histStat" class="ctrl-stat"></div>
+        </div>
+        <div class="checklist">
+          <div class="checklist-title">読み取りチェック</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">規格線（USL/LSL）と分布の関係を確認した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">分布形状（正規・偏り・二山等）を診断した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">Cpk を計算して工程能力を定量評価した</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- D5: 散布図 -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">D5</span>
+        <div class="card-title-wrap">
+          <div class="card-title">散布図</div>
+          <div class="card-sub">Scatter Diagram</div>
+        </div>
+        <span class="card-phase">A:Analyze</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">2つの変数の関係を点で可視化。因子（X）と品質特性（Y）の相関関係を確認し、真因候補を絞り込む。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">原因候補Xと結果Yの相関確認</span></div>
+        <div class="info-row"><span class="info-label">相関の種類</span><span class="info-val">正相関・負相関・無相関・曲線相関</span></div>
+        <div class="info-row"><span class="info-label">注意</span><span class="info-val">相関≠因果。層別で「見かけ上の相関」を排除</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">散布図デモ（クリックでプロット）</div>
+          <canvas class="scatter-canvas" id="scatterCanvas" width="600" height="150"></canvas>
+          <div style="font-size:9px;color:var(--text3);font-family:var(--font-mono);margin-top:4px;display:flex;justify-content:space-between;">
+            <span>↑ Y軸: 品質特性　→ X軸: 工程パラメータ　クリックでプロット / 右クリックでリセット</span>
+            <span id="scatterCorr"></span>
+          </div>
+        </div>
+
+        <div class="checklist">
+          <div class="checklist-title">解釈チェック</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">外れ値の原因を個別に確認した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">層別（作業者・設備別）で散布図を再作成した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">相関係数（r）を計算して確認した</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- D6: 管理図 -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">D6</span>
+        <div class="card-title-wrap">
+          <div class="card-title">管理図</div>
+          <div class="card-sub">Control Chart (SPC)</div>
+        </div>
+        <span class="card-phase">C:Control</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">工程の時系列変動をリアルタイム監視。管理限界線（UCL/LCL）から外れたとき、または異常パターンを検出して即アクション。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">改善後の効果維持・日常的な工程監視</span></div>
+        <div class="info-row"><span class="info-label">主な種類</span><span class="info-val">Xbar-R図（計量値）/ p図・np図（不良率）</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">管理図シミュレーター</div>
+          <div class="ctrl-inputs">
+            <label>CL（中心線）: <input id="ctrlCL" type="number" value="10.0" step="0.1"></label>
+            <label>σ: <input id="ctrlSig" type="number" value="0.3" step="0.05"></label>
+            <button class="btn-small" onclick="addCtrlPoint()">＋ 点を追加</button>
+            <button class="btn-small" onclick="addCtrlOutlier()">⚠ 異常点</button>
+            <button class="btn-small btn-danger" onclick="resetCtrl()">リセット</button>
+          </div>
+          <canvas class="ctrl-canvas" id="ctrlCanvas" width="600" height="140"></canvas>
+          <div id="ctrlStat" class="ctrl-stat"></div>
+        </div>
+
+        <div class="checklist">
+          <div class="checklist-title">異常判定ルール（Nelson Rules）</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">Rule 1: 管理限界外に1点（3σ超）</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">Rule 2: 同側に9点連続（片側傾向）</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">Rule 3: 連続6点の単調増加/減少</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">Rule 4: 連続14点の交互上下（のこぎり波）</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- D7: 特性要因図 -->
+    <div class="tool-card" style="grid-column: 1/-1;">
+      <div class="card-header">
+        <span class="card-num">D7</span>
+        <div class="card-title-wrap">
+          <div class="card-title">特性要因図（フィッシュボーン図）</div>
+          <div class="card-sub">Cause & Effect Diagram / Ishikawa Diagram</div>
+        </div>
+        <span class="card-phase">A:Analyze</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">問題（特性）に影響する原因を5M1Eの骨格で網羅的に整理。ブレインストーミングと組み合わせて原因候補を洗い出す。</p>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:280px;">
+            <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">根本原因の候補洗い出し（なぜなぜ分析の前）</span></div>
+            <div class="info-row"><span class="info-label">骨格</span><span class="info-val">5M1E：Man/Machine/Material/Method/Measurement/Environment</span></div>
+            <div class="info-row"><span class="info-label">注意</span><span class="info-val">「書いたら終わり」にせず、各原因を Is/Is Not で検証する</span></div>
+            <div class="checklist">
+              <div class="checklist-title">作成チェック</div>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">結果（特性）を具体的な数値で定義した（例：不良率2.3%）</span></label>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">各骨に最低3つ以上の原因を記入した</span></label>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">洗い出した原因を「検証可能な仮説」として絞り込んだ</span></label>
+              <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">過去のFMEA・4M変更記録と照合した</span></label>
+            </div>
+          </div>
+          <div style="flex:2;min-width:400px;">
+            <div class="interactive-zone">
+              <div class="interactive-zone-title">フィッシュボーン図 テンプレート</div>
+              <div class="fishbone-wrap">
+                <svg class="fishbone-svg" viewBox="0 0 700 240" id="fishboneSvg">
+                  <defs>
+                    <marker id="fb-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                      <path d="M0,0 L6,3 L0,6 Z" fill="#f59e0b"/>
+                    </marker>
+                  </defs>
+                  <!-- 背骨 -->
+                  <line x1="60" y1="120" x2="580" y2="120" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#fb-arrow)"/>
+                  <!-- 結果ボックス -->
+                  <rect x="580" y="96" width="110" height="48" rx="3" fill="#1f2937" stroke="#f59e0b" stroke-width="1.5"/>
+                  <text x="635" y="116" fill="#f59e0b" font-size="10" text-anchor="middle" font-family="Noto Sans JP">問題・特性</text>
+                  <text x="635" y="132" fill="#f59e0b" font-size="9" text-anchor="middle" font-family="Noto Sans JP">（ここに記入）</text>
+
+                  <!-- 上側骨 -->
+                  <!-- Man -->
+                  <line x1="140" y1="50" x2="200" y2="120" stroke="#8b949e" stroke-width="1.5"/>
+                  <text x="110" y="40" fill="#38bdf8" font-size="11" font-weight="700" font-family="Rajdhani">MAN（人）</text>
+                  <line x1="150" y1="75" x2="200" y2="120" stroke="#8b949e" stroke-width="1" stroke-dasharray="3,2"/>
+                  <text x="100" y="72" fill="#e6edf3" font-size="9" font-family="Noto Sans JP">技能・経験</text>
+                  <line x1="165" y1="62" x2="200" y2="120" stroke="#8b949e" stroke-width="1" stroke-dasharray="3,2"/>
+                  <text x="118" y="58" fill="#e6edf3" font-size="9" font-family="Noto Sans JP">教育・訓練</text>
+
+                  <!-- Machine -->
+                  <line x1="300" y1="45" x2="340" y2="120" stroke="#8b949e" stroke-width="1.5"/>
+                  <text x="265" y="35" fill="#38bdf8" font-size="11" font-weight="700" font-family="Rajdhani">MACHINE（設備）</text>
+                  <line x1="305" y1="72" x2="340" y2="120" stroke="#8b949e" stroke-width="1" stroke-dasharray="3,2"/>
+                  <text x="258" y="68" fill="#e6edf3" font-size="9" font-family="Noto Sans JP">精度・摩耗</text>
+                  <line x1="315" y1="58" x2="340" y2="120" stroke="#8b949e" stroke-width="1" stroke-dasharray="3,2"/>
+                  <text x="270" y="54" fill="#e6edf3" font-size="9" font-family="Noto Sans JP">保全・点検</text>
+
+                  <!-- Method -->
+                  <line x1="450" y1="50" x2="480" y2="120" stroke="#8b949e" stroke-width="1.5"/>
+                  <text x="415" y="40" fill="#38bdf8" font-size="11" font-weight="700" font-family="Rajdhani">METHOD（方法）</text>
+                  <line x1="455" y1="76" x2="480" y2="120" stroke="#8b949e" stroke-width="1" stroke-dasharray="3,2"/>
+                  <text x="408" y="72" fill="#e6edf3" font-size="9" font-family="Noto Sans JP">手順書・基準</text>
+
+                  <!-- 下側骨 -->
+                  <!-- Material -->
+                  <line x1="175" y1="195" x2="230" y2="120" stroke="#8b949e" stroke-width="1.5"/>
+                  <text x="105" y="212" fill="#38bdf8" font-size="11" font-weight="700" font-family="Rajdhani">MATERIAL（材料）</text>
+                  <line x1="185" y1="172" x2="230" y2="120" stroke="#8b949e" stroke-width="1" stroke-dasharray="3,2"/>
+                  <text x="115" y="168" fill="#e6edf3" font-size="9" font-family="Noto Sans JP">ロット差・品質</text>
+
+                  <!-- Measurement -->
+                  <line x1="340" y1="195" x2="380" y2="120" stroke="#8b949e" stroke-width="1.5"/>
+                  <text x="255" y="212" fill="#38bdf8" font-size="11" font-weight="700" font-family="Rajdhani">MEASUREMENT（測定）</text>
+                  <line x1="350" y1="172" x2="380" y2="120" stroke="#8b949e" stroke-width="1" stroke-dasharray="3,2"/>
+                  <text x="290" y="168" fill="#e6edf3" font-size="9" font-family="Noto Sans JP">測定誤差・校正</text>
+
+                  <!-- Environment -->
+                  <line x1="475" y1="195" x2="510" y2="120" stroke="#8b949e" stroke-width="1.5"/>
+                  <text x="415" y="212" fill="#38bdf8" font-size="11" font-weight="700" font-family="Rajdhani">ENVIRONMENT（環境）</text>
+                  <line x1="485" y1="172" x2="510" y2="120" stroke="#8b949e" stroke-width="1" stroke-dasharray="3,2"/>
+                  <text x="426" y="168" fill="#e6edf3" font-size="9" font-family="Noto Sans JP">温湿度・振動</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+  </div><!-- /tool-grid -->
+</div><!-- /tab-qc7 -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 2: 新QC7つ道具
+══════════════════════════════════════════════════════ -->
+<div id="tab-newqc7" class="tab-panel">
+  <div class="section-intro">
+    <div>
+      <h2>新 QC 7つ道具</h2>
+      <p>言語データ（定性データ）を構造化・可視化するツール群。<br>企画・設計・問題解決の上流工程で使う。数値では表せない問題の整理に強い。</p>
+      <div class="tag-group">
+        <span class="tag tag-amber">定性データ</span>
+        <span class="tag tag-amber">上流工程</span>
+        <span class="tag tag-amber">企画・設計段階</span>
+        <span class="tag tag-blue">DMAIC-D/A</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool-grid">
+
+    <!-- N1: 親和図法 -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">N1</span>
+        <div class="card-title-wrap">
+          <div class="card-title">親和図法（KJ法）</div>
+          <div class="card-sub">Affinity Diagram</div>
+        </div>
+        <span class="card-phase">D:Define</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">バラバラな言語情報（アイデア・意見・問題）を親和性で グループ化し、問題構造を浮き彫りにする。VOC整理に最適。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">問題の全体像把握・VOC整理・ブレインストーミング後</span></div>
+        <div class="info-row"><span class="info-label">進め方</span><span class="info-val">① カード（付箋）に1事象1カード記入 → ② 親和性でグループ化 → ③ グループ表題付け</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">親和図 ─ 付箋ボード（クリックで追加）</div>
+          <div class="affinity-board" id="affinityBoard"></div>
+          <div class="sticky-input-row">
+            <input class="sticky-input" id="stickyInput" type="text" placeholder="問題・意見を入力してEnter">
+            <button class="btn-small" onclick="addSticky()">＋ 追加</button>
+            <button class="btn-small btn-danger" onclick="clearStickies()">全クリア</button>
+          </div>
+        </div>
+
+        <div class="checklist">
+          <div class="checklist-title">実施チェック</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">1カード1事象の原則を守っている</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">グループ名は「中身を要約した名詞・動詞句」になっている</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">1人で決めず、チームで合意してグループ化した</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- N2: 連関図法 -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">N2</span>
+        <div class="card-title-wrap">
+          <div class="card-title">連関図法</div>
+          <div class="card-sub">Relations Diagram</div>
+        </div>
+        <span class="card-phase">A:Analyze</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">複数の原因・結果が複雑に絡み合う問題を矢印で表現。「出る矢印が多い」→ 根本原因、「入る矢印が多い」→ 重要結果。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">慢性的・複合的問題の原因構造把握</span></div>
+        <div class="info-row"><span class="info-label">読み方</span><span class="info-val">出矢印数が多いカード＝重点改善対象（根本原因）</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">連関図 サンプル（矢印＝因果関係）</div>
+          <svg class="relation-svg" viewBox="0 0 500 200">
+            <defs>
+              <marker id="arrowhead2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8b949e"/></marker>
+              <marker id="arrowhead3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f59e0b"/></marker>
+            </defs>
+            <!-- nodes -->
+            <rect class="rel-box" x="190" y="80" width="110" height="36" rx="3" fill="#1f3864" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="245" y="98" class="rel-text" fill="#f59e0b" font-size="9">不良率 上昇</text>
+            <rect class="rel-box" x="20" y="20" width="100" height="32" rx="3"/>
+            <text x="70" y="36" class="rel-text">作業手順が</text><text x="70" y="48" class="rel-text">統一されていない</text>
+            <rect class="rel-box" x="20" y="90" width="100" height="32" rx="3"/>
+            <text x="70" y="106" class="rel-text">設備の精度</text><text x="70" y="118" class="rel-text">が低下</text>
+            <rect class="rel-box" x="20" y="158" width="100" height="32" rx="3"/>
+            <text x="70" y="174" class="rel-text">材料ロットに</text><text x="70" y="186" class="rel-text">バラツキ</text>
+            <rect class="rel-box" x="380" y="30" width="100" height="32" rx="3"/>
+            <text x="430" y="46" class="rel-text">クレーム増加</text>
+            <rect class="rel-box" x="380" y="130" width="100" height="32" rx="3"/>
+            <text x="430" y="146" class="rel-text">出荷検査</text><text x="430" y="158" class="rel-text">コスト増大</text>
+            <rect class="rel-box" x="200" y="158" width="100" height="32" rx="3"/>
+            <text x="250" y="174" class="rel-text">検査見落とし</text><text x="250" y="186" class="rel-text">が多い</text>
+            <!-- arrows -->
+            <line class="rel-arrow key" x1="120" y1="36" x2="188" y2="90"/>
+            <line class="rel-arrow key" x1="120" y1="106" x2="188" y2="104"/>
+            <line class="rel-arrow" x1="120" y1="174" x2="188" y2="110"/>
+            <line class="rel-arrow" x1="300" y1="94" x2="378" y2="50"/>
+            <line class="rel-arrow" x1="300" y1="104" x2="378" y2="142"/>
+            <line class="rel-arrow" x1="300" y1="174" x2="378" y2="148"/>
+            <!-- legend -->
+            <line x1="20" y1="8" x2="50" y2="8" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrowhead3)"/>
+            <text x="55" y="12" fill="#f59e0b" font-size="8" font-family="JetBrains Mono">重点原因</text>
+            <line x1="120" y1="8" x2="150" y2="8" stroke="#8b949e" stroke-width="1" marker-end="url(#arrowhead2)"/>
+            <text x="155" y="12" fill="#8b949e" font-size="8" font-family="JetBrains Mono">因果関係</text>
+          </svg>
+        </div>
+
+        <div class="checklist">
+          <div class="checklist-title">分析チェック</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">出矢印・入矢印を数えてキーカードを特定した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">循環関係（A→B→A）がないか確認した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">キーカードを根本原因と仮定して検証した</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- N3: 系統図法 -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">N3</span>
+        <div class="card-title-wrap">
+          <div class="card-title">系統図法</div>
+          <div class="card-sub">Tree Diagram / Systematic Diagram</div>
+        </div>
+        <span class="card-phase">M:Method（ARMS）</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">目標達成のための手段をツリー状に展開。「手段→さらに手段」を繰り返して実行可能レベルまで落とし込む。HOWツリーの実務版。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">是正処置の立案・設計要求の展開・WBS作成</span></div>
+        <div class="info-row"><span class="info-label">展開の深さ</span><span class="info-val">「誰かがすぐ実行できる」レベルまで展開する</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">系統図 サンプル（不良率低減）</div>
+          <svg class="tree-svg" viewBox="0 0 600 180">
+            <!-- root -->
+            <rect class="tree-box root" x="10" y="70" width="100" height="40" rx="3"/>
+            <text class="tree-text root-text" x="60" y="85">不良率</text>
+            <text class="tree-text root-text" x="60" y="100">低減</text>
+            <!-- L1 -->
+            <line class="tree-line" x1="110" y1="90" x2="140" y2="55"/>
+            <line class="tree-line" x1="110" y1="90" x2="140" y2="125"/>
+            <rect class="tree-box" x="140" y="36" width="100" height="36" rx="2"/>
+            <text class="tree-text" x="190" y="49">発生を</text><text class="tree-text" x="190" y="63">減らす</text>
+            <rect class="tree-box" x="140" y="107" width="100" height="36" rx="2"/>
+            <text class="tree-text" x="190" y="120">流出を</text><text class="tree-text" x="190" y="134">防ぐ</text>
+            <!-- L2 upper -->
+            <line class="tree-line" x1="240" y1="54" x2="270" y2="30"/>
+            <line class="tree-line" x1="240" y1="54" x2="270" y2="70"/>
+            <rect class="tree-box" x="270" y="14" width="110" height="32" rx="2"/>
+            <text class="tree-text" x="325" y="28">手順書の整備</text><text class="tree-text" x="325" y="40">（Method）</text>
+            <rect class="tree-box" x="270" y="55" width="110" height="32" rx="2"/>
+            <text class="tree-text" x="325" y="68">設備PM強化</text><text class="tree-text" x="325" y="80">（Machine）</text>
+            <!-- L2 lower -->
+            <line class="tree-line" x1="240" y1="125" x2="270" y2="108"/>
+            <line class="tree-line" x1="240" y1="125" x2="270" y2="142"/>
+            <rect class="tree-box" x="270" y="92" width="110" height="32" rx="2"/>
+            <text class="tree-text" x="325" y="105">検査基準書</text><text class="tree-text" x="325" y="117">整備</text>
+            <rect class="tree-box" x="270" y="128" width="110" height="32" rx="2"/>
+            <text class="tree-text" x="325" y="141">ポカヨケ</text><text class="tree-text" x="325" y="153">導入</text>
+            <!-- L3 -->
+            <line class="tree-line" x1="380" y1="30" x2="410" y2="20"/>
+            <line class="tree-line" x1="380" y1="30" x2="410" y2="42"/>
+            <rect class="tree-box" x="410" y="8" width="110" height="24" rx="2" fill="#0d2137" stroke="#38bdf8"/>
+            <text class="tree-text" x="465" y="20" fill="#38bdf8">手順書改訂（山田/4/30）</text>
+            <rect class="tree-box" x="410" y="36" width="110" height="24" rx="2" fill="#0d2137" stroke="#38bdf8"/>
+            <text class="tree-text" x="465" y="48" fill="#38bdf8">作業者教育（鈴木/5/7）</text>
+          </svg>
+          <div style="font-size:9px;color:var(--blue);font-family:var(--font-mono);">🔵 末端ノード = 実行可能なアクション（担当者・期限付き）</div>
+        </div>
+
+        <div class="checklist">
+          <div class="checklist-title">展開チェック</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">末端の手段が「誰がいつまでに何をするか」まで落とせている</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">手段がMECEになっている（漏れ・ダブりがない）</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">目的と手段の論理がつながっている（なぜこの手段か言える）</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- N4: マトリックス図法 -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">N4</span>
+        <div class="card-title-wrap">
+          <div class="card-title">マトリックス図法</div>
+          <div class="card-sub">Matrix Diagram</div>
+        </div>
+        <span class="card-phase">A:Analyze / M</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">2つの要素群の関係の強さを行列で表現。品質特性と工程の関係、要求と手段の対応などを一覧で整理する。QFD（品質機能展開）の基盤。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">CTQと工程の関係整理・FMEA・設計QFD</span></div>
+        <div class="info-row"><span class="info-label">記号</span><span class="info-val">◎強い関係 / ○関係あり / △弱い関係 / （空白）無関係</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">マトリックス図（セルをクリックして関係を設定）</div>
+          <table class="matrix-table" id="matrixTable">
+            <thead>
+              <tr>
+                <th>工程 ↓ / CTQ →</th>
+                <th>寸法精度</th>
+                <th>表面粗さ</th>
+                <th>硬度</th>
+                <th>外観</th>
+              </tr>
+            </thead>
+            <tbody id="matrixBody"></tbody>
+          </table>
+        </div>
+
+        <div class="checklist">
+          <div class="checklist-title">活用チェック</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">◎の工程を重点管理工程として特定した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">コントロールプランの管理項目に反映した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">関連するFMEAと整合しているか確認した</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- N5: マトリックスデータ解析法 -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">N5</span>
+        <div class="card-title-wrap">
+          <div class="card-title">マトリックスデータ解析法</div>
+          <div class="card-sub">Matrix Data Analysis (PCA)</div>
+        </div>
+        <span class="card-phase">A:Analyze</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">主成分分析（PCA）によりマトリックスデータを2次元に圧縮・可視化。新QC7つ道具の中で唯一の数値解析手法。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">多変数データの構造把握・製品群の分類・類似性分析</span></div>
+        <div class="info-row"><span class="info-label">実務での代用</span><span class="info-val">ExcelのPCA・MiniTab・JMPなどで実施するケースが多い</span></div>
+        <div class="info-row"><span class="info-label">IATF文脈</span><span class="info-val">MSA・工程能力の多変量分析に応用される</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">概念図：主成分分析のイメージ</div>
+          <svg viewBox="0 0 400 160" width="100%" height="140">
+            <defs>
+              <marker id="pca-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f59e0b"/></marker>
+            </defs>
+            <text x="10" y="14" fill="#8b949e" font-size="9" font-family="JetBrains Mono">多変数（X₁,X₂...Xₙ）→ 2主成分に圧縮 → 2D散布図で可視化</text>
+            <rect x="10" y="25" width="110" height="120" rx="3" fill="#161b22" stroke="#30363d"/>
+            <text x="65" y="40" fill="#8b949e" font-size="8" text-anchor="middle" font-family="JetBrains Mono">元データ行列</text>
+            <text x="65" y="55" fill="#8b949e" font-size="7" text-anchor="middle" font-family="JetBrains Mono">（n×p）</text>
+            <text x="25" y="80" fill="#e6edf3" font-size="8" font-family="JetBrains Mono">X₁ X₂ X₃ X₄</text>
+            <text x="25" y="96" fill="#e6edf3" font-size="8" font-family="JetBrains Mono">A  5  3  8  2</text>
+            <text x="25" y="110" fill="#e6edf3" font-size="8" font-family="JetBrains Mono">B  2  7  1  9</text>
+            <text x="25" y="124" fill="#e6edf3" font-size="8" font-family="JetBrains Mono">C  8  1  6  4</text>
+            <text x="25" y="138" fill="#e6edf3" font-size="8" font-family="JetBrains Mono">D  3  9  2  7</text>
+            <line x1="125" y1="85" x2="155" y2="85" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#pca-arr)"/>
+            <text x="128" y="80" fill="#f59e0b" font-size="8" font-family="JetBrains Mono">PCA</text>
+            <!-- 散布図 -->
+            <rect x="160" y="25" width="220" height="120" rx="3" fill="#161b22" stroke="#30363d"/>
+            <text x="270" y="40" fill="#8b949e" font-size="8" text-anchor="middle" font-family="JetBrains Mono">主成分空間（PC1 vs PC2）</text>
+            <line x1="200" y1="130" x2="370" y2="130" stroke="#30363d" stroke-width="1"/>
+            <line x1="200" y1="130" x2="200" y2="50" stroke="#30363d" stroke-width="1"/>
+            <text x="375" y="133" fill="#8b949e" font-size="8" font-family="JetBrains Mono">PC1</text>
+            <text x="195" y="47" fill="#8b949e" font-size="8" text-anchor="end" font-family="JetBrains Mono">PC2</text>
+            <circle cx="260" cy="75" r="6" fill="none" stroke="#38bdf8" stroke-width="1.5"/><text x="268" y="71" fill="#38bdf8" font-size="9" font-family="Noto Sans JP">A</text>
+            <circle cx="310" cy="110" r="6" fill="none" stroke="#4ade80" stroke-width="1.5"/><text x="318" y="106" fill="#4ade80" font-size="9" font-family="Noto Sans JP">B</text>
+            <circle cx="225" cy="90" r="6" fill="none" stroke="#f59e0b" stroke-width="1.5"/><text x="233" y="86" fill="#f59e0b" font-size="9" font-family="Noto Sans JP">C</text>
+            <circle cx="340" cy="65" r="6" fill="none" stroke="#f87171" stroke-width="1.5"/><text x="348" y="61" fill="#f87171" font-size="9" font-family="Noto Sans JP">D</text>
+            <text x="270" y="148" fill="#8b949e" font-size="8" text-anchor="middle" font-family="JetBrains Mono">類似品・外れ品を視覚的に把握</text>
+          </svg>
+        </div>
+
+        <div class="checklist">
+          <div class="checklist-title">適用チェック</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">変数の数が5以上あり、変数間の相関が疑われる</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">第1・第2主成分の寄与率が合計70%以上を確認した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">因子負荷量から各成分の物理的意味を解釈した</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- N6: PDPC法 -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">N6</span>
+        <div class="card-title-wrap">
+          <div class="card-title">PDPC法</div>
+          <div class="card-sub">Process Decision Program Chart</div>
+        </div>
+        <span class="card-phase">I/C:Control</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">計画実施中に起こりうる「もしもの事態」を事前に列挙し、対応策（Plan B）を決めておく。KT法の潜在問題分析（PPA）と同じ思想。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">新工程立上げ・重要プロジェクトの事前リスク対策</span></div>
+        <div class="info-row"><span class="info-label">他との違い</span><span class="info-val">「失敗パスと回避策」を同時に図示するのが特徴</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">PDPC 概念図</div>
+          <svg class="pdpc-svg" viewBox="0 0 520 148">
+            <defs>
+              <marker id="pdpc-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8b949e"/></marker>
+              <marker id="pdpc-ok" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4ade80"/></marker>
+              <marker id="pdpc-ng" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f87171"/></marker>
+            </defs>
+            <rect x="5" y="55" width="80" height="36" rx="3" fill="#1f3864" stroke="#38bdf8"/>
+            <text x="45" y="70" fill="#38bdf8" font-size="9" text-anchor="middle" font-family="Noto Sans JP">スタート</text>
+            <text x="45" y="83" fill="#38bdf8" font-size="8" text-anchor="middle" font-family="Noto Sans JP">（工程立上げ）</text>
+            <line x1="85" y1="73" x2="115" y2="73" stroke="#8b949e" stroke-width="1.2" marker-end="url(#pdpc-arr)"/>
+            <rect x="115" y="55" width="90" height="36" rx="3" fill="#1f2937" stroke="#30363d"/>
+            <text x="160" y="70" fill="#e6edf3" font-size="9" text-anchor="middle" font-family="Noto Sans JP">試作・評価</text>
+            <!-- OK -->
+            <line x1="205" y1="73" x2="235" y2="35" stroke="#4ade80" stroke-width="1.2" marker-end="url(#pdpc-ok)"/>
+            <text x="218" y="52" fill="#4ade80" font-size="8" font-family="JetBrains Mono">OK</text>
+            <rect x="235" y="18" width="90" height="34" rx="3" fill="#0d2a18" stroke="#4ade80"/>
+            <text x="280" y="33" fill="#4ade80" font-size="9" text-anchor="middle" font-family="Noto Sans JP">量産移行</text>
+            <text x="280" y="45" fill="#4ade80" font-size="8" text-anchor="middle" font-family="Noto Sans JP">✓ ゴール</text>
+            <!-- NG -->
+            <line x1="205" y1="73" x2="235" y2="110" stroke="#f87171" stroke-width="1.2" marker-end="url(#pdpc-ng)"/>
+            <text x="218" y="98" fill="#f87171" font-size="8" font-family="JetBrains Mono">NG</text>
+            <rect x="235" y="94" width="100" height="34" rx="3" fill="#2a0d0d" stroke="#f87171"/>
+            <text x="285" y="109" fill="#f87171" font-size="9" text-anchor="middle" font-family="Noto Sans JP">評価基準不達</text>
+            <!-- 対応策 -->
+            <line x1="335" y1="111" x2="365" y2="111" stroke="#f59e0b" stroke-width="1.2" marker-end="url(#pdpc-arr)"/>
+            <text x="348" y="106" fill="#f59e0b" font-size="8" font-family="JetBrains Mono">Plan B</text>
+            <rect x="365" y="94" width="110" height="34" rx="3" fill="#1f1500" stroke="#f59e0b"/>
+            <text x="420" y="109" fill="#f59e0b" font-size="9" text-anchor="middle" font-family="Noto Sans JP">条件を変更して</text>
+            <text x="420" y="121" fill="#f59e0b" font-size="9" text-anchor="middle" font-family="Noto Sans JP">再評価（田口法）</text>
+            <line x1="420" y1="94" x2="335" y2="73" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,2"/>
+            <text x="370" y="68" fill="#f59e0b" font-size="8" font-family="JetBrains Mono">↺ 再試作</text>
+          </svg>
+        </div>
+
+        <div class="checklist">
+          <div class="checklist-title">作成チェック</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">各ステップで起こりうるNGシナリオを列挙した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">各NGに対するPlan Bを事前に決定した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">Plan Bの発動条件（トリガー）を明記した</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- N7: アロー図法 -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-num">N7</span>
+        <div class="card-title-wrap">
+          <div class="card-title">アロー図法（日程計画）</div>
+          <div class="card-sub">Arrow Diagram (PERT/CPM)</div>
+        </div>
+        <span class="card-phase">Plan:計画立案</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">作業の順序・依存関係を矢印で表現し、クリティカルパス（最長経路）を特定。プロジェクトの最短完了日と遅延しては困るタスクを明確化。</p>
+        <div class="info-row"><span class="info-label">いつ使う</span><span class="info-val">設備立上げ・量産準備・認証取得計画</span></div>
+        <div class="info-row"><span class="info-label">クリティカルパス</span><span class="info-val">赤線＝1日でも遅れるとプロジェクト全体が遅延するタスク</span></div>
+
+        <div class="interactive-zone">
+          <div class="interactive-zone-title">アロー図 サンプル（赤＝クリティカルパス）</div>
+          <svg class="arrow-svg" viewBox="0 0 560 120">
+            <defs>
+              <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8b949e"/></marker>
+              <marker id="crit-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f87171"/></marker>
+            </defs>
+            <!-- nodes -->
+            <circle class="node-circle" cx="40" cy="60" r="18"/><text class="node-text" x="40" y="60">①</text>
+            <circle class="node-circle" cx="140" cy="25" r="18"/><text class="node-text" x="140" y="25">②</text>
+            <circle class="node-circle" cx="140" cy="95" r="18"/><text class="node-text" x="140" y="95">③</text>
+            <circle class="node-circle" cx="270" cy="25" r="18"/><text class="node-text" x="270" y="25">④</text>
+            <circle class="node-circle" cx="270" cy="95" r="18"/><text class="node-text" x="270" y="95">⑤</text>
+            <circle class="node-circle" cx="390" cy="60" r="18"/><text class="node-text" x="390" y="60">⑥</text>
+            <circle class="node-circle" cx="510" cy="60" r="18"/><text class="node-text" x="510" y="60">⑦</text>
+            <!-- critical path: ①→②→④→⑥→⑦ -->
+            <line class="arrow-line critical-line" x1="57" y1="50" x2="122" y2="32" marker-end="url(#crit-arr)"/>
+            <text class="arrow-label critical-label" x="84" y="35">A(5d)</text>
+            <line class="arrow-line critical-line" x1="158" y1="25" x2="252" y2="25" marker-end="url(#crit-arr)"/>
+            <text class="arrow-label critical-label" x="205" y="19">C(8d)</text>
+            <line class="arrow-line critical-line" x1="288" y1="40" x2="373" y2="52" marker-end="url(#crit-arr)"/>
+            <text class="arrow-label critical-label" x="325" y="40">F(6d)</text>
+            <line class="arrow-line critical-line" x1="408" y1="60" x2="492" y2="60" marker-end="url(#crit-arr)"/>
+            <text class="arrow-label critical-label" x="450" y="54">H(4d)</text>
+            <!-- normal paths -->
+            <line class="arrow-line" x1="57" y1="70" x2="122" y2="88" marker-end="url(#arrowhead)"/>
+            <text class="arrow-label" x="84" y="87">B(3d)</text>
+            <line class="arrow-line" x1="158" y1="95" x2="252" y2="95" marker-end="url(#arrowhead)"/>
+            <text class="arrow-label" x="205" y="110">E(4d)</text>
+            <line class="arrow-line" x1="288" y1="80" x2="373" y2="68" marker-end="url(#arrowhead)"/>
+            <text class="arrow-label" x="326" y="82">G(3d)</text>
+            <line class="arrow-line" x1="158" y1="32" x2="252" y2="88" stroke-dasharray="4,2" marker-end="url(#arrowhead)"/>
+            <text class="arrow-label" x="210" y="65">D(2d)</text>
+            <!-- legend -->
+            <line x1="10" y1="115" x2="40" y2="115" stroke="#f87171" stroke-width="1.5" marker-end="url(#crit-arr)"/>
+            <text x="45" y="119" fill="#f87171" font-size="8" font-family="JetBrains Mono">Critical Path (23d)</text>
+            <line x1="180" y1="115" x2="210" y2="115" stroke="#8b949e" stroke-width="1" marker-end="url(#arrowhead)"/>
+            <text x="215" y="119" fill="#8b949e" font-size="8" font-family="JetBrains Mono">Normal Path</text>
+          </svg>
+        </div>
+
+        <div class="checklist">
+          <div class="checklist-title">計画チェック</div>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">クリティカルパスを特定して重点管理した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">クリティカルパス上のタスクに担当者を1名設定した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">フロート（余裕時間）を計算してバッファとして活用した</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"><span class="check-box"></span><span class="check-text">外部依存タスク（承認・納入）を先に特定した</span></label>
+        </div>
+        <div class="card-progress"><div class="card-progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+  </div><!-- /tool-grid -->
+</div><!-- /tab-newqc7 -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 3: DMAIC 対応マップ
+══════════════════════════════════════════════════════ -->
+<div id="tab-dmaicmap" class="tab-panel">
+  <div class="section-intro">
+    <div>
+      <h2>DMAIC ─ ツール対応マップ</h2>
+      <p>QC7つ道具・新QC7つ道具を Lean Six Sigma の DMAIC フレームワークに配置した実務リファレンス。</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px;">
+    <!-- D -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid #38bdf8;padding:16px;">
+      <div style="font-family:var(--font-head);font-size:22px;color:#38bdf8;font-weight:700;margin-bottom:4px;">D</div>
+      <div style="font-size:10px;color:var(--text2);margin-bottom:12px;">Define（定義）</div>
+      <div style="font-size:10px;color:var(--amber);font-family:var(--font-mono);margin-bottom:6px;">新QC7</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.8;">N1 親和図法<br>（VOC整理）<br>N3 系統図法<br>（CTQ展開）</div>
+      <div style="font-size:10px;color:var(--amber);font-family:var(--font-mono);margin:8px 0 6px;">QC7</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.8;">D1 チェックシート<br>（データ計画）<br>D2 層別<br>（軸の設計）</div>
+    </div>
+    <!-- M -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid #4ade80;padding:16px;">
+      <div style="font-family:var(--font-head);font-size:22px;color:#4ade80;font-weight:700;margin-bottom:4px;">M</div>
+      <div style="font-size:10px;color:var(--text2);margin-bottom:12px;">Measure（測定）</div>
+      <div style="font-size:10px;color:var(--amber);font-family:var(--font-mono);margin-bottom:6px;">QC7</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.8;">D1 チェックシート<br>D4 ヒストグラム<br>（Cpk評価）<br>D6 管理図<br>（ベースライン）<br>D2 層別</div>
+    </div>
+    <!-- A -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid #f59e0b;padding:16px;">
+      <div style="font-family:var(--font-head);font-size:22px;color:#f59e0b;font-weight:700;margin-bottom:4px;">A</div>
+      <div style="font-size:10px;color:var(--text2);margin-bottom:12px;">Analyze（分析）</div>
+      <div style="font-size:10px;color:var(--amber);font-family:var(--font-mono);margin-bottom:6px;">QC7</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.8;">D3 パレート図<br>（重点項目）<br>D5 散布図<br>（相関確認）<br>D7 特性要因図<br>（原因洗出し）</div>
+      <div style="font-size:10px;color:var(--amber);font-family:var(--font-mono);margin:8px 0 6px;">新QC7</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.8;">N2 連関図法<br>N4 マトリックス図<br>N5 データ解析法</div>
+    </div>
+    <!-- I -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid #c084fc;padding:16px;">
+      <div style="font-family:var(--font-head);font-size:22px;color:#c084fc;font-weight:700;margin-bottom:4px;">I</div>
+      <div style="font-size:10px;color:var(--text2);margin-bottom:12px;">Improve（改善）</div>
+      <div style="font-size:10px;color:var(--amber);font-family:var(--font-mono);margin-bottom:6px;">新QC7</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.8;">N3 系統図法<br>（施策展開）<br>N6 PDPC法<br>（リスク対策）<br>N7 アロー図法<br>（計画立案）</div>
+      <div style="font-size:10px;color:var(--amber);font-family:var(--font-mono);margin:8px 0 6px;">関連</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.8;">田口メソッド<br>（DOE）</div>
+    </div>
+    <!-- C -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid #f87171;padding:16px;">
+      <div style="font-family:var(--font-head);font-size:22px;color:#f87171;font-weight:700;margin-bottom:4px;">C</div>
+      <div style="font-size:10px;color:var(--text2);margin-bottom:12px;">Control（管理）</div>
+      <div style="font-size:10px;color:var(--amber);font-family:var(--font-mono);margin-bottom:6px;">QC7</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.8;">D6 管理図（SPC）<br>D4 ヒストグラム<br>（改善後確認）<br>D3 パレート図<br>（効果確認）</div>
+      <div style="font-size:10px;color:var(--amber);font-family:var(--font-mono);margin:8px 0 6px;">新QC7</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.8;">N4 マトリックス図<br>（CP更新）</div>
+    </div>
+  </div>
+
+  <!-- 使い分けガイド -->
+  <div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--amber);padding:20px;">
+    <div style="font-family:var(--font-head);font-size:16px;color:var(--amber);letter-spacing:1px;margin-bottom:14px;">QC7 vs 新QC7 ─ 使い分けガイド</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--blue);margin-bottom:8px;">▸ QC 7つ道具 を使う場面</div>
+        <div style="font-size:11px;color:var(--text2);line-height:2;">
+          ✓ 不良件数・測定値などの<strong style="color:var(--text)">数値データ</strong>がある<br>
+          ✓ 現場の<strong style="color:var(--text)">日常管理・工程監視</strong>に使いたい<br>
+          ✓ 「何が起きているか」「どの程度か」を把握したい<br>
+          ✓ DMAIC の M（Measure）・A（Analyze）・C（Control）フェーズ
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--green);margin-bottom:8px;">▸ 新QC 7つ道具 を使う場面</div>
+        <div style="font-size:11px;color:var(--text2);line-height:2;">
+          ✓ 意見・アイデア・問題記述などの<strong style="color:var(--text)">言語データ</strong>しかない<br>
+          ✓ <strong style="color:var(--text)">上流（企画・設計）</strong>で問題を構造化したい<br>
+          ✓ 複雑に絡み合う問題を整理したい（連関図）<br>
+          ✓ DMAIC の D（Define）・A（Analyze）・I（Improve）フェーズ
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /dmaicmap -->
+
+</main><!-- /main -->
+
+<script>
+// ── タブ切り替え ────────────────────────────────────────
+function switchTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+  if (id === 'qc7') { drawPareto(); drawHistogram(); drawControlChart(); drawScatter(); }
+}
+
+// ── チェック項目 ─────────────────────────────────────────
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  updateProgress(el.closest('.card-body'));
+}
+function updateProgress(cardBody) {
+  const items = cardBody.querySelectorAll('.check-item');
+  const done  = cardBody.querySelectorAll('.check-item.checked');
+  const bar   = cardBody.querySelector('.card-progress-fill');
+  if (bar && items.length) bar.style.width = (done.length / items.length * 100) + '%';
+}
+
+// ── チェックシート ───────────────────────────────────────
+const csData = {};
+const csItems = ['寸法不良', '外観キズ', '欠け', '組付不良'];
+function initCS() {
+  const grid = document.getElementById('csGrid');
+  csItems.forEach((item, ri) => {
+    csData[ri] = [0,0,0,0];
+    const itemCell = document.createElement('div');
+    itemCell.className = 'cs-cell item';
+    itemCell.textContent = item;
+    grid.appendChild(itemCell);
+    for (let ci = 0; ci < 4; ci++) {
+      const cell = document.createElement('div');
+      cell.className = 'cs-cell';
+      cell.textContent = '0';
+      cell.dataset.ri = ri; cell.dataset.ci = ci;
+      cell.addEventListener('click', function() {
+        const r = +this.dataset.ri, c = +this.dataset.ci;
+        csData[r][c]++;
+        this.textContent = csData[r][c];
+        this.classList.toggle('active', csData[r][c] > 0);
+        updateCSTotal(r);
+      });
+      cell.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        const r = +this.dataset.ri, c = +this.dataset.ci;
+        if (csData[r][c] > 0) { csData[r][c]--; this.textContent = csData[r][c]; }
+        this.classList.toggle('active', csData[r][c] > 0);
+        updateCSTotal(r);
+      });
+      grid.appendChild(cell);
+    }
+    const totalCell = document.createElement('div');
+    totalCell.className = 'cs-cell';
+    totalCell.id = 'cs-total-' + ri;
+    totalCell.textContent = '0';
+    grid.appendChild(totalCell);
+  });
+}
+function updateCSTotal(ri) {
+  const total = csData[ri].reduce((a,b) => a+b, 0);
+  const el = document.getElementById('cs-total-' + ri);
+  if (el) { el.textContent = total; el.classList.toggle('active', total > 0); }
+}
+function addCSRow() {
+  const name = prompt('不良項目名を入力:'); if (!name) return;
+  csItems.push(name);
+  const ri = csItems.length - 1;
+  csData[ri] = [0,0,0,0];
+  const grid = document.getElementById('csGrid');
+  grid.style.gridTemplateColumns = 'auto repeat(5, 1fr)';
+  const itemCell = document.createElement('div');
+  itemCell.className = 'cs-cell item'; itemCell.textContent = name;
+  grid.appendChild(itemCell);
+  for (let ci = 0; ci < 4; ci++) {
+    const cell = document.createElement('div');
+    cell.className = 'cs-cell'; cell.textContent = '0';
+    cell.dataset.ri = ri; cell.dataset.ci = ci;
+    cell.addEventListener('click', function() {
+      const r=+this.dataset.ri, c=+this.dataset.ci; csData[r][c]++;
+      this.textContent=csData[r][c]; this.classList.toggle('active',csData[r][c]>0); updateCSTotal(r);
+    });
+    grid.appendChild(cell);
+  }
+  const tot = document.createElement('div');
+  tot.className='cs-cell'; tot.id='cs-total-'+ri; tot.textContent='0';
+  grid.appendChild(tot);
+}
+function resetCS() { location.reload(); }
+
+// ── パレート図 ───────────────────────────────────────────
+function addParetoRow() {
+  const div = document.createElement('div');
+  div.className = 'pareto-row';
+  div.innerHTML = `<input class="pareto-label-in" type="text" placeholder="不良種類">
+    <input class="pareto-num-in" type="number" placeholder="件数" value="0">
+    <button class="btn-small btn-danger" onclick="this.parentElement.remove();drawPareto()">✕</button>`;
+  document.getElementById('paretoInputs').appendChild(div);
+}
+function drawPareto() {
+  const canvas = document.getElementById('paretoCanvas');
+  const ctx = canvas.getContext('2d');
+  const rows = document.querySelectorAll('#paretoInputs .pareto-row');
+  let data = [];
+  rows.forEach(r => {
+    const label = r.querySelector('.pareto-label-in').value || '?';
+    const val   = +r.querySelector('.pareto-num-in').value || 0;
+    data.push({label, val});
+  });
+  data.sort((a,b) => b.val - a.val);
+  const total = data.reduce((s,d) => s+d.val, 0);
+  if (!total) return;
+  const W = canvas.width, H = canvas.height;
+  const pad = {top:14, bottom:40, left:40, right:50};
+  const bw = W - pad.left - pad.right;
+  const bh = H - pad.top - pad.bottom;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = '#161b22'; ctx.fillRect(0,0,W,H);
+  const barW = bw / data.length;
+  let cumPct = 0;
+  const points = [];
+  data.forEach((d, i) => {
+    const pct = d.val / total;
+    const barH = bh * pct;
+    const x = pad.left + i * barW;
+    const y = pad.top + bh - barH;
+    // bar gradient
+    const g = ctx.createLinearGradient(x, y, x, y+barH);
+    g.addColorStop(0, '#f59e0b'); g.addColorStop(1, '#d97706');
+    ctx.fillStyle = g;
+    ctx.fillRect(x+2, y, barW-4, barH);
+    // label
+    ctx.fillStyle = '#8b949e'; ctx.font = '9px JetBrains Mono';
+    ctx.textAlign = 'center';
+    const labelText = d.label.length > 5 ? d.label.slice(0,5)+'…' : d.label;
+    ctx.fillText(labelText, x + barW/2, H - pad.bottom + 12);
+    ctx.fillText(d.val, x + barW/2, H - pad.bottom + 22);
+    // count
+    ctx.fillStyle = '#e6edf3'; ctx.font = 'bold 9px JetBrains Mono';
+    ctx.fillText(d.val, x+barW/2, y-4);
+    cumPct += pct;
+    points.push({x: x+barW/2, y: pad.top + bh*(1-cumPct)});
+  });
+  // cumulative line
+  ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  points.forEach((p,i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y));
+  ctx.stroke();
+  points.forEach(p => { ctx.beginPath(); ctx.arc(p.x,p.y,3,0,Math.PI*2); ctx.fillStyle='#38bdf8'; ctx.fill(); });
+  // 80% line
+  const y80 = pad.top + bh * 0.2;
+  ctx.strokeStyle = '#f87171'; ctx.lineWidth = 1; ctx.setLineDash([4,2]);
+  ctx.beginPath(); ctx.moveTo(pad.left, y80); ctx.lineTo(W-pad.right, y80); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#f87171'; ctx.font = '9px JetBrains Mono'; ctx.textAlign = 'right';
+  ctx.fillText('80%', W - pad.right + 20, y80+4);
+  // Y axis
+  ctx.strokeStyle = '#30363d'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad.left, pad.top); ctx.lineTo(pad.left, H-pad.bottom); ctx.stroke();
+  for (let i=0; i<=4; i++) {
+    const yy = pad.top + bh*(i/4);
+    ctx.fillStyle='#484f58'; ctx.font='8px JetBrains Mono'; ctx.textAlign='right';
+    ctx.fillText(Math.round(total*(1-i/4)), pad.left-4, yy+3);
+  }
+}
+
+// ── ヒストグラム ─────────────────────────────────────────
+function drawHistogram() {
+  const canvas = document.getElementById('histCanvas');
+  const ctx = canvas.getContext('2d');
+  const raw = document.getElementById('histData').value.trim().split(/\s+/).map(Number).filter(n => !isNaN(n));
+  const lsl = parseFloat(document.getElementById('histLSL').value);
+  const usl = parseFloat(document.getElementById('histUSL').value);
+  if (!raw.length) return;
+  const W=canvas.width, H=canvas.height;
+  const pad={top:10,bottom:28,left:34,right:10};
+  const bw=W-pad.left-pad.right, bh=H-pad.top-pad.bottom;
+  ctx.clearRect(0,0,W,H); ctx.fillStyle='#161b22'; ctx.fillRect(0,0,W,H);
+  const min=Math.min(...raw), max=Math.max(...raw);
+  const bins=Math.max(5,Math.round(Math.sqrt(raw.length)));
+  const bsize=(max-min)/bins;
+  const counts=new Array(bins).fill(0);
+  raw.forEach(v => { let i=Math.min(Math.floor((v-min)/bsize),bins-1); counts[i]++; });
+  const maxC=Math.max(...counts);
+  const mean=raw.reduce((a,b)=>a+b,0)/raw.length;
+  const std=Math.sqrt(raw.reduce((a,b)=>a+(b-mean)**2,0)/raw.length);
+  const cpk=Math.min((usl-mean)/(3*std),(mean-lsl)/(3*std));
+  const toX=v=>pad.left+(v-min)/(max-min)*bw;
+  const barW=bw/bins;
+  counts.forEach((c,i)=>{
+    const x=pad.left+i*barW;
+    const barH=c/maxC*bh;
+    const y=pad.top+bh-barH;
+    const g=ctx.createLinearGradient(x,y,x,y+barH);
+    g.addColorStop(0,'#2E75B6'); g.addColorStop(1,'#1F3864');
+    ctx.fillStyle=g; ctx.fillRect(x+1,y,barW-2,barH);
+    ctx.strokeStyle='#30363d'; ctx.lineWidth=0.5;
+    ctx.strokeRect(x+1,y,barW-2,barH);
+  });
+  // spec lines
+  if (!isNaN(lsl)) { const x=toX(lsl); ctx.strokeStyle='#f87171'; ctx.lineWidth=1.5; ctx.setLineDash([4,2]); ctx.beginPath(); ctx.moveTo(x,pad.top); ctx.lineTo(x,H-pad.bottom); ctx.stroke(); ctx.fillStyle='#f87171'; ctx.font='8px JetBrains Mono'; ctx.textAlign='center'; ctx.fillText('LSL',x,pad.top+8); }
+  if (!isNaN(usl)) { const x=toX(usl); ctx.strokeStyle='#f87171'; ctx.lineWidth=1.5; ctx.setLineDash([4,2]); ctx.beginPath(); ctx.moveTo(x,pad.top); ctx.lineTo(x,H-pad.bottom); ctx.stroke(); ctx.fillStyle='#f87171'; ctx.font='8px JetBrains Mono'; ctx.textAlign='center'; ctx.fillText('USL',x,pad.top+8); }
+  ctx.setLineDash([]);
+  // mean line
+  const mx=toX(mean); ctx.strokeStyle='#f59e0b'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(mx,pad.top); ctx.lineTo(mx,H-pad.bottom); ctx.stroke();
+  // x axis labels
+  ctx.fillStyle='#484f58'; ctx.font='8px JetBrains Mono'; ctx.textAlign='center';
+  for(let i=0;i<=4;i++) { const v=min+(max-min)*i/4; ctx.fillText(v.toFixed(1),pad.left+bw*i/4,H-pad.bottom+10); }
+  // stat
+  document.getElementById('histStat').innerHTML = `μ: <span>${mean.toFixed(3)}</span>　σ: <span>${std.toFixed(3)}</span>　Cpk: <span style="color:${cpk>=1.33?'#4ade80':cpk>=1.0?'#f59e0b':'#f87171'}">${cpk.toFixed(2)}</span>　n: <span>${raw.length}</span>`;
+}
+
+// ── 管理図 ───────────────────────────────────────────────
+let ctrlPoints = [];
+function drawControlChart() {
+  const canvas = document.getElementById('ctrlCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const CL  = parseFloat(document.getElementById('ctrlCL').value)  || 10;
+  const sig  = parseFloat(document.getElementById('ctrlSig').value) || 0.3;
+  const UCL  = CL + 3*sig, LCL = CL - 3*sig;
+  const W=canvas.width, H=canvas.height;
+  const pad={top:14,bottom:20,left:46,right:14};
+  const bw=W-pad.left-pad.right, bh=H-pad.top-pad.bottom;
+  ctx.clearRect(0,0,W,H); ctx.fillStyle='#161b22'; ctx.fillRect(0,0,W,H);
+  const range = UCL-LCL;
+  const toY = v => pad.top + bh*(1-(v-LCL)/range);
+  // gridlines
+  [UCL, CL+2*sig, CL+sig, CL, CL-sig, CL-2*sig, LCL].forEach((v,i)=>{
+    const y=toY(v);
+    ctx.strokeStyle= i===0||i===6 ? '#f87171' : i===3 ? '#f59e0b' : '#30363d';
+    ctx.lineWidth= i===3?1.5:0.8; ctx.setLineDash(i===3?[]:[3,2]);
+    ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(W-pad.right,y); ctx.stroke();
+    ctx.fillStyle=i===0||i===6?'#f87171':i===3?'#f59e0b':'#484f58';
+    ctx.font='8px JetBrains Mono'; ctx.textAlign='right';
+    ctx.fillText(i===0?'UCL':i===6?'LCL':i===3?'CL':'',pad.left-3,y+3);
+    ctx.fillText(v.toFixed(1),pad.left-3,y+11);
+  });
+  ctx.setLineDash([]);
+  if (ctrlPoints.length > 1) {
+    ctx.strokeStyle='#38bdf8'; ctx.lineWidth=1.2;
+    ctx.beginPath();
+    ctrlPoints.forEach((p,i)=>{
+      const x=pad.left+i/(ctrlPoints.length-1||1)*bw, y=toY(p);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+    ctrlPoints.forEach((p,i)=>{
+      const x=pad.left+i/(ctrlPoints.length-1||1)*bw, y=toY(p);
+      const isOut = p>UCL||p<LCL;
+      ctx.beginPath(); ctx.arc(x,y,3.5,0,Math.PI*2);
+      ctx.fillStyle=isOut?'#f87171':'#38bdf8'; ctx.fill();
+      if(isOut){ctx.strokeStyle='#f87171';ctx.lineWidth=1;ctx.stroke();}
+    });
+  }
+  const out=ctrlPoints.filter(p=>p>UCL||p<LCL).length;
+  document.getElementById('ctrlStat').innerHTML = `点数: <span>${ctrlPoints.length}</span>　管理外: <span style="color:${out>0?'#f87171':'#4ade80'}">${out}点</span>　UCL: <span>${UCL.toFixed(2)}</span>　LCL: <span>${LCL.toFixed(2)}</span>`;
+}
+function addCtrlPoint() {
+  const CL=parseFloat(document.getElementById('ctrlCL').value)||10;
+  const sig=parseFloat(document.getElementById('ctrlSig').value)||0.3;
+  ctrlPoints.push(CL + (Math.random()-0.5)*2*sig);
+  drawControlChart();
+}
+function addCtrlOutlier() {
+  const CL=parseFloat(document.getElementById('ctrlCL').value)||10;
+  const sig=parseFloat(document.getElementById('ctrlSig').value)||0.3;
+  ctrlPoints.push(CL + (Math.random()>0.5?1:-1)*(sig*3.2+Math.random()*sig));
+  drawControlChart();
+}
+function resetCtrl() { ctrlPoints=[]; drawControlChart(); }
+
+// ── 散布図 ───────────────────────────────────────────────
+let scatterPoints = [];
+function initScatter() {
+  const canvas = document.getElementById('scatterCanvas');
+  canvas.addEventListener('click', function(e) {
+    const r = canvas.getBoundingClientRect();
+    const px = (e.clientX-r.left)/r.width;
+    const py = (e.clientY-r.top)/r.height;
+    scatterPoints.push({x:px, y:1-py});
+    drawScatter();
+  });
+  canvas.addEventListener('contextmenu', function(e) {
+    e.preventDefault(); scatterPoints=[]; drawScatter();
+  });
+}
+function drawScatter() {
+  const canvas = document.getElementById('scatterCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W=canvas.width, H=canvas.height;
+  ctx.clearRect(0,0,W,H); ctx.fillStyle='#161b22'; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='#30363d'; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    ctx.beginPath(); ctx.moveTo(W*i/4,0); ctx.lineTo(W*i/4,H); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0,H*i/4); ctx.lineTo(W,H*i/4); ctx.stroke();
+  }
+  if (scatterPoints.length>1) {
+    // regression
+    const n=scatterPoints.length;
+    const mx=scatterPoints.reduce((a,p)=>a+p.x,0)/n;
+    const my=scatterPoints.reduce((a,p)=>a+p.y,0)/n;
+    const num=scatterPoints.reduce((a,p)=>a+(p.x-mx)*(p.y-my),0);
+    const den=scatterPoints.reduce((a,p)=>a+(p.x-mx)**2,0);
+    const slope=den?num/den:0, intercept=my-slope*mx;
+    const r=den&&scatterPoints.reduce((a,p)=>a+(p.y-my)**2,0)?num/Math.sqrt(den*scatterPoints.reduce((a,p)=>a+(p.y-my)**2,0)):0;
+    ctx.strokeStyle='rgba(245,158,11,0.4)'; ctx.lineWidth=1; ctx.setLineDash([4,2]);
+    ctx.beginPath(); ctx.moveTo(0,H*(1-(intercept))); ctx.lineTo(W,H*(1-(slope*1+intercept))); ctx.stroke();
+    ctx.setLineDash([]);
+    document.getElementById('scatterCorr').textContent = `r = ${r.toFixed(3)}`;
+  }
+  scatterPoints.forEach(p=>{
+    ctx.beginPath(); ctx.arc(p.x*W,H*(1-p.y),4,0,Math.PI*2);
+    ctx.fillStyle='#f59e0b'; ctx.fill();
+  });
+}
+
+// ── 親和図 ───────────────────────────────────────────────
+const stickyColors=['#fef3c7','#dbeafe','#dcfce7','#fce7f3','#e0e7ff'];
+let stickyIdx=0;
+function addSticky() {
+  const input = document.getElementById('stickyInput');
+  const text = input.value.trim(); if(!text) return;
+  const div = document.createElement('div');
+  div.className = 'sticky-note';
+  div.style.background = stickyColors[stickyIdx++ % stickyColors.length];
+  div.innerHTML = `${text}<button class="del-btn" onclick="this.parentElement.remove()">✕</button>`;
+  document.getElementById('affinityBoard').appendChild(div);
+  input.value = '';
+}
+function clearStickies() { document.getElementById('affinityBoard').innerHTML = ''; }
+document.addEventListener('DOMContentLoaded', function() {
+  const inp = document.getElementById('stickyInput');
+  if(inp) inp.addEventListener('keydown', e=>{ if(e.key==='Enter') addSticky(); });
+});
+
+// ── マトリックス図 ───────────────────────────────────────
+const matrixRows = ['加工工程A','溶接工程B','熱処理工程C','検査工程D'];
+const matrixVals = ['◎','○','△',''];
+const matrixInit = [['◎','△','','○'],['○','◎','△',''],['△','○','◎','○'],['','△','○','◎']];
+function initMatrix() {
+  const tbody = document.getElementById('matrixBody');
+  matrixRows.forEach((row,ri)=>{
+    const tr = document.createElement('tr');
+    const th = document.createElement('th');
+    th.textContent = row; th.style.textAlign='left'; th.style.fontWeight='normal';
+    th.style.color='var(--text2)';
+    tr.appendChild(th);
+    for(let ci=0;ci<4;ci++){
+      const td = document.createElement('td');
+      td.className='matrix-cell'; td.dataset.val=matrixInit[ri][ci];
+      td.textContent = matrixInit[ri][ci] || '―';
+      td.addEventListener('click',function(){
+        const cur=matrixVals.indexOf(this.dataset.val);
+        const nxt=matrixVals[(cur+1)%matrixVals.length];
+        this.dataset.val=nxt; this.textContent=nxt||'―';
+      });
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  });
+}
+
+// ── 初期化 ───────────────────────────────────────────────
+window.addEventListener('load', function() {
+  initCS();
+  initMatrix();
+  initScatter();
+  setTimeout(()=>{
+    drawPareto();
+    drawHistogram();
+    drawControlChart();
+    drawScatter();
+  }, 200);
+});
+</script>
+</body>
+</html>
